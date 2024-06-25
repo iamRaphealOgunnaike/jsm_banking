@@ -1,5 +1,5 @@
 import Sidebar from "@/components/Sidebar";
-import MobileNav from "@/components/ui/MobileNav";
+import MobileNav from "@/components/MobileNav";
 import Image from "next/image";
 
 export default function RootLayout({

@@ -15,8 +15,7 @@ const Sidebar = ({ user }: SiderbarProps) => {
                 <Link href="/"
                     className="mb-12 
                     cursor-pointer flex 
-                    items-center gap-2"
-                    
+                    items-center gap-2"      
                 >
                     <Image
                         src='/icons/logo.svg'
@@ -50,7 +49,10 @@ const Sidebar = ({ user }: SiderbarProps) => {
                     )
                 })}
 
+                USER
             </nav>
+
+            FOOTER
         </section>
     )
 }
