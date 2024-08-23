@@ -1,36 +1,47 @@
-'user server';
+'use server'
 
-import { cookies } from "next/headers";
+import { Sign } from "crypto";
 import { createAdminClient, createSessionClient } from "../appwrite";
+import { ID } from "node-appwrite";
 
-export const signIn = async ()=>{
+export const signIn = async () => {
+    try {
+        // mutation / database / make fetch
+    } catch (error) {
+        console.error('Error', error);
 
+    }
 }
-export const signUp = async (useData: SignUpParams)=>{
-    try{
-        const {account} = await createAdminClient();
-
-        await account.create(ID.unique(), email, password, name);
+export const signUp = async (userData: SignUpParams) => {
+    try {
+        const { account } = await createAdminClient();
+        const newUserAccount= await account.create(
+            ID.unique(), 
+            email, 
+            password, 
+            name
+        );
         const session = await account.
-        createEmailPasswordSession(email, password);
+            createEmailPasswordSession(email, password);
 
         cookies().set("my-custom-session", session.secret, {
-            path:"/",
+            path: "/",
             httpOnly: true,
-            sameSite:
-        })
-    } catch(error){
+            sameSite: "strict"
+
+        });
+    } catch (error) {
         console.error('Error', error);
+
     }
 }
 
-// ... your initialization functions
-
-export async function getLoggerInUser() {
-    try{
+export async function getLoggedInUser() {
+    try {
         const { account } = await createSessionClient();
         return await account.get();
-    }catch (error){
+    } catch (error) {
         return null;
+
     }
 }
