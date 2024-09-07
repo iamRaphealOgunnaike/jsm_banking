@@ -23,10 +23,12 @@ import { signIn, signUp } from '@/lib/actions/users.actions'
 import SignIn from '@/app/(auth)/sign-in/page'
 import { useRouter } from 'next/navigation'
 
+
 const AuthForm = ({ type }: { type: string }) => {
     const router = useRouter();
-    const [user, SetUser] = useState(null);
-    const [isLoading, SetIsLoading] = useState(false);
+    const [user, setUser] = useState(null);
+    
+    const [isLoading, setIsLoading] = useState(false);
 
     const formSchema = authformSchema(type);
     // 1. Define your form.
@@ -40,14 +42,13 @@ const AuthForm = ({ type }: { type: string }) => {
 
     // 2. Define a submit handler.
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
-        SetIsLoading(true);
+        setIsLoading(true);
 
         try {
             // sign up with Appwrite & create plain link token
 
             if (type === 'sign-up') {
                 const newUser = await signUp(data);
-
                 setUser(newUser);
 
             }
@@ -56,19 +57,20 @@ const AuthForm = ({ type }: { type: string }) => {
                 const response = await signIn({
                     email: data.email,
                     password: data.password,   
-                })
-                if(response) router.push('/')
+                });
+
+                if (response) router.push('/');
             }
 
         } catch (error) {
             console.log(error);
 
         } finally {
-            SetIsLoading(false);
+            setIsLoading(false);
 
         }
 
-    }
+    };
     return (
         <section className='auth-form'>
             <header className='flex flex-col gap-5 md:gap-8'>
@@ -95,7 +97,7 @@ const AuthForm = ({ type }: { type: string }) => {
                                 : 'Sign Up '
                         }
                         <p className='text-16 font-normal text-gray-600'>
-                            {user ? 'Link your account to get statrted' : 'Please enter your details'}
+                            {user ? 'Link your account to get started' : 'Please enter your details'}
                         </p>
                     </h1>
                 </div>
@@ -186,4 +188,4 @@ const AuthForm = ({ type }: { type: string }) => {
     )
 }
 
-export default AuthForm
+export default AuthForm;

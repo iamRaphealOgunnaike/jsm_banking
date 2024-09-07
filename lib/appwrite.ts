@@ -7,10 +7,8 @@ import { get } from "http";
 
 export async function createSessionClient() {
     const client = new Client()
-        .setEndpoint(process.env.
-            NEXT_PUBLIC_APPWRITE_ENDPOINT)
-        .setProject(process.env.
-            NEXT_PUBLIC_APPWRITE_ENDPOINT);
+        .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
+        .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT!);
 
     const session = cookies().get("appwrite-session");
 
@@ -33,10 +31,10 @@ export async function createSessionClient() {
 export async function createAdminClient() {
     const client = new Client()
         .setEndpoint(process.env.
-            NEXT_PUBLIC_APPWRITE_ENDPOINT)
+            NEXT_PUBLIC_APPWRITE_ENDPOINT!)
         .setProject(process.env.
-            NEXT_PUBLIC_APPWRITE_ENDPOINT)
-        .setKey(process.env.NEXT_PUBLIC_APPWRITE_KEY);
+            NEXT_PUBLIC_APPWRITE_PROJECT!)
+        .setKey(process.env.NEXT_PUBLIC_APPWRITE_KEY!);
 
     return {
         get account() {
